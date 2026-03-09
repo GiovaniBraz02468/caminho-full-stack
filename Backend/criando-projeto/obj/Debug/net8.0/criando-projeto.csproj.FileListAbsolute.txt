@@ -1,0 +1,15 @@
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\bin\Debug\net8.0\criando-projeto.exe
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\bin\Debug\net8.0\criando-projeto.deps.json
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\bin\Debug\net8.0\criando-projeto.runtimeconfig.json
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\bin\Debug\net8.0\criando-projeto.dll
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\bin\Debug\net8.0\criando-projeto.pdb
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\obj\Debug\net8.0\criando-projeto.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\obj\Debug\net8.0\criando-projeto.AssemblyInfoInputs.cache
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\obj\Debug\net8.0\criando-projeto.AssemblyInfo.cs
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\obj\Debug\net8.0\criando-projeto.csproj.CoreCompileInputs.cache
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\obj\Debug\net8.0\criando-projeto.sourcelink.json
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\obj\Debug\net8.0\criando-projeto.dll
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\obj\Debug\net8.0\refint\criando-projeto.dll
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\obj\Debug\net8.0\criando-projeto.pdb
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\obj\Debug\net8.0\criando-projeto.genruntimeconfig.cache
+F:\Projetos\caminho-full-stack\Backend\criando-projeto\obj\Debug\net8.0\ref\criando-projeto.dll
