@@ -1,0 +1,2 @@
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\bin\Release\net8.0\win-x64\publish\batalha-robo.pdb
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\bin\Release\net8.0\win-x64\publish\batalha-robo.exe

@@ -1,0 +1,15 @@
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\bin\Debug\net8.0\curso-dotnet8.exe
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\bin\Debug\net8.0\curso-dotnet8.deps.json
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\bin\Debug\net8.0\curso-dotnet8.runtimeconfig.json
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\bin\Debug\net8.0\curso-dotnet8.dll
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\bin\Debug\net8.0\curso-dotnet8.pdb
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\obj\Debug\net8.0\curso-dotnet8.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\obj\Debug\net8.0\curso-dotnet8.AssemblyInfoInputs.cache
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\obj\Debug\net8.0\curso-dotnet8.AssemblyInfo.cs
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\obj\Debug\net8.0\curso-dotnet8.csproj.CoreCompileInputs.cache
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\obj\Debug\net8.0\curso-dotnet8.sourcelink.json
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\obj\Debug\net8.0\curso-dotnet8.dll
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\obj\Debug\net8.0\refint\curso-dotnet8.dll
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\obj\Debug\net8.0\curso-dotnet8.pdb
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\obj\Debug\net8.0\curso-dotnet8.genruntimeconfig.cache
+F:\Projetos\caminho-full-stack\Backend\curso-dotnet8\obj\Debug\net8.0\ref\curso-dotnet8.dll

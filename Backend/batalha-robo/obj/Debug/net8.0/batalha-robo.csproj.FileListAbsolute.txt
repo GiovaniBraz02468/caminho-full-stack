@@ -1,0 +1,15 @@
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\bin\Debug\net8.0\batalha-robo.exe
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\bin\Debug\net8.0\batalha-robo.deps.json
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\bin\Debug\net8.0\batalha-robo.runtimeconfig.json
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\bin\Debug\net8.0\batalha-robo.dll
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\bin\Debug\net8.0\batalha-robo.pdb
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\obj\Debug\net8.0\batalha-robo.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\obj\Debug\net8.0\batalha-robo.AssemblyInfoInputs.cache
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\obj\Debug\net8.0\batalha-robo.AssemblyInfo.cs
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\obj\Debug\net8.0\batalha-robo.csproj.CoreCompileInputs.cache
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\obj\Debug\net8.0\batalha-robo.sourcelink.json
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\obj\Debug\net8.0\batalha-robo.dll
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\obj\Debug\net8.0\refint\batalha-robo.dll
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\obj\Debug\net8.0\batalha-robo.pdb
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\obj\Debug\net8.0\batalha-robo.genruntimeconfig.cache
+F:\Projetos\caminho-full-stack\Backend\batalha-robo\obj\Debug\net8.0\ref\batalha-robo.dll
