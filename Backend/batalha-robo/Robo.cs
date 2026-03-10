@@ -46,13 +46,13 @@ public class Robo
     public int Defender(int ataqueRealizado)
     {
         int defesa = Utils.Sorteio.Next(1, 6);
-        int ataqueInfringido = defesa - ataqueRealizado;
+        int danoInfligido = defesa - ataqueRealizado;
 
-        if (ataqueInfringido < 0)
+        if (danoInfligido < 0)
         {
-            Vida += ataqueInfringido;
+            Vida += danoInfligido;
             if (Vida < 0) Vida = 0;
-            return ataqueInfringido;
+            return danoInfligido;
         }
 
         return 0;

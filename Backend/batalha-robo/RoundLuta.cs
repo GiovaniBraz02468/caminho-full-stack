@@ -14,11 +14,11 @@ public class RoundLuta
     }
 
     //Métodos
-    public void CadastraParticipate(Robo novoIntegrante)
+    public void CadastraParticipante(Robo novoIntegrante)
     {
         Participantes.Add(novoIntegrante);
     }
-    public void RemoverPArticipante(Robo antigoIntegrante)
+    public void RemoverParticipante(Robo antigoIntegrante)
     {
         Participantes.Remove(antigoIntegrante);
     }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("batalha-robo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01b00f5930f1f5e17a90933ed6fdfe08127b0651")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0224b18d615f00d6f608b041a658e65d4035ceb8")]
 [assembly: System.Reflection.AssemblyProductAttribute("batalha-robo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("batalha-robo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

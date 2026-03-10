@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace batalha_robo
 {
     public class MenuPrincipal
@@ -14,7 +9,7 @@ namespace batalha_robo
         }
         public static void Despedida()
         {
-            Console.WriteLine("Até uma proxima vez!");
+            Console.WriteLine("Até uma próxima vez!");
         }
         public static string ProcessaMenu()
         {

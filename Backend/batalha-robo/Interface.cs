@@ -18,15 +18,15 @@ namespace batalha_robo
                 string nomeRobo = Console.ReadLine() ?? "";
                 if (!BatalhaRobo.Torneio.VerificaRobo(nomeRobo))
                 {
-                    BatalhaRobo.Torneio.CadastraParticipate(new Robo(nomeRobo));
+                    BatalhaRobo.Torneio.CadastraParticipante(new Robo(nomeRobo));
                     Console.Clear();
-                    Console.WriteLine($"Novo participante {nomeRobo.ToUpper()} cadastrada com sucesso!");
+                    Console.WriteLine($"Novo participante {nomeRobo.ToUpper()} cadastrado com sucesso!");
                     break;
                 }
                 else
                 {
                     Console.Clear();
-                    Console.WriteLine($"Um robô com o nome {nomeRobo.ToUpper()} já existem, cadastre um novo!");
+                    Console.WriteLine($"Um robô com o nome {nomeRobo.ToUpper()} já existe, cadastre um novo!");
                 }
             }
         }
@@ -76,7 +76,7 @@ namespace batalha_robo
             Console.Clear();
             if (BatalhaRobo.Torneio.QtdParticipantes() > 0)
             {
-                Console.WriteLine("Vamos Editar um robo");
+                Console.WriteLine("Vamos Editar um robô");
                 while (true)
                 {
                     int contador = 1;
@@ -129,7 +129,7 @@ namespace batalha_robo
                                             }
                                             return;
                                         case "2":
-                                            BatalhaRobo.Torneio.RemoverPArticipante(roboSelecionado);
+                                            BatalhaRobo.Torneio.RemoverParticipante(roboSelecionado);
                                             Console.Clear();
                                             Console.WriteLine("Robô deletado");
                                             return;
@@ -254,10 +254,6 @@ namespace batalha_robo
             else if (BatalhaRobo.Torneio.QtdParticipantes() <= 1)
             {
                 Console.WriteLine("Precisamos ter pelo menos 2 robôs para lutar, cadastre um novo!");
-            }
-            else if (BatalhaRobo.Torneio.QtdParticipantes() == 0)
-            {
-                Console.WriteLine("Não temos robôs cadastrados!");
             }
         }
         public static void InterfaceExecutarBatalha(Robo r1, Robo r2)
