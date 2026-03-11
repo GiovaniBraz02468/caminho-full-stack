@@ -1,0 +1,15 @@
+F:\Projetos\caminho-full-stack\Backend\treinando-api\bin\Debug\net8.0\treinando-api.exe
+F:\Projetos\caminho-full-stack\Backend\treinando-api\bin\Debug\net8.0\treinando-api.deps.json
+F:\Projetos\caminho-full-stack\Backend\treinando-api\bin\Debug\net8.0\treinando-api.runtimeconfig.json
+F:\Projetos\caminho-full-stack\Backend\treinando-api\bin\Debug\net8.0\treinando-api.dll
+F:\Projetos\caminho-full-stack\Backend\treinando-api\bin\Debug\net8.0\treinando-api.pdb
+F:\Projetos\caminho-full-stack\Backend\treinando-api\obj\Debug\net8.0\treinando-api.GeneratedMSBuildEditorConfig.editorconfig
+F:\Projetos\caminho-full-stack\Backend\treinando-api\obj\Debug\net8.0\treinando-api.AssemblyInfoInputs.cache
+F:\Projetos\caminho-full-stack\Backend\treinando-api\obj\Debug\net8.0\treinando-api.AssemblyInfo.cs
+F:\Projetos\caminho-full-stack\Backend\treinando-api\obj\Debug\net8.0\treinando-api.csproj.CoreCompileInputs.cache
+F:\Projetos\caminho-full-stack\Backend\treinando-api\obj\Debug\net8.0\treinando-api.sourcelink.json
+F:\Projetos\caminho-full-stack\Backend\treinando-api\obj\Debug\net8.0\treinando-api.dll
+F:\Projetos\caminho-full-stack\Backend\treinando-api\obj\Debug\net8.0\refint\treinando-api.dll
+F:\Projetos\caminho-full-stack\Backend\treinando-api\obj\Debug\net8.0\treinando-api.pdb
+F:\Projetos\caminho-full-stack\Backend\treinando-api\obj\Debug\net8.0\treinando-api.genruntimeconfig.cache
+F:\Projetos\caminho-full-stack\Backend\treinando-api\obj\Debug\net8.0\ref\treinando-api.dll
