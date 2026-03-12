@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 
 namespace sistema_estoque.console_admin.services
 {
+    /// <summary>
+    /// Classe responsável por entregar ícones para o restante do sistema
+    /// </summary>
     public class Icones
     {
-
+        //Propriedades auxiliares
         // Navegação e Status
         public const string Sucesso = "✅";
         public const string Erro = "❌";

@@ -9,19 +9,29 @@ using sistema_estoque.infrastructure.repositories;
 
 namespace sistema_estoque.console_admin.menus
 {
+    /// <summary>
+    /// Classe responsável por gerenciar o menu do cliente após o login (Gerenciar produtos e estoque)
+    /// </summary>
     public class MenuSistema
     {
+        //Variáveis auxiliares
         private Usuario _usuarioLogado;
-        public MenuSistema(Usuario usuario)
-        {
-            _usuarioLogado = usuario;
-
-            _produtoRepo = new ProdutoRepository();
-            _movimentacaoRepo = new MovimentacaoRepository();
-        }
         private readonly MovimentacaoRepository _movimentacaoRepo;
         public ProdutoRepository _produtoRepo = new ProdutoRepository();
 
+        //Construtores
+        public MenuSistema(Usuario usuario)
+        {
+            _usuarioLogado = usuario;
+            _produtoRepo = new ProdutoRepository();
+            _movimentacaoRepo = new MovimentacaoRepository();
+        }
+
+        //Métodos
+
+        /// <summary>
+        /// Função responsável por exibir o menu principal do cliente logado, para gerenciar os produtos e movimentações
+        /// </summary>
         public void Exibir()
         {
             while (true)
@@ -53,6 +63,9 @@ namespace sistema_estoque.console_admin.menus
             }
         }
 
+        /// <summary>
+        /// Função responsável por realizar o cadastro de um novo produto (chamando as funções do repositório)
+        /// </summary>
         private void CadastrarNovoProduto()
         {
             Console.Clear();
@@ -79,6 +92,9 @@ namespace sistema_estoque.console_admin.menus
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Função responsável por listar os itens do estoque
+        /// </summary>
         private void VerEstoque()
         {
             Console.Clear();
@@ -110,6 +126,9 @@ namespace sistema_estoque.console_admin.menus
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Função responsável por realizar a edição de um produto (Chamando as funções do repositório)
+        /// </summary>
         private void EditarProduto()
         {
             Console.Clear();
@@ -167,6 +186,9 @@ namespace sistema_estoque.console_admin.menus
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Função responsável por realizar uma nova movimentação de um produto (Chamando as funções do repositório)
+        /// </summary>
         private void RealizarMovimentacao()
         {
             Console.Clear();
@@ -216,7 +238,7 @@ namespace sistema_estoque.console_admin.menus
                     Console.WriteLine($"{Icones.Erro} Saldo insuficiente! Você tem apenas {produto.QuantidadeAtual}.");
                     continue;
                 }
-                
+
                 break;
             }
 
@@ -244,6 +266,9 @@ namespace sistema_estoque.console_admin.menus
             Console.ReadKey();
         }
 
+        /// <summary>
+        /// Função responsável por exibir as movimentações realizadas de um produto (Chamando as funções do repositório)
+        /// </summary>
         private void VerHistorico()
         {
             Console.Clear();

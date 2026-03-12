@@ -8,10 +8,19 @@ using sistema_estoque.infrastructure.repositories;
 
 namespace sistema_estoque.console_admin.menus
 {
+    /// <summary>
+    /// Classe responsável por gerenciar o menu de login/cadastro do sistema
+    /// </summary>
     public class MenuLogin
     {
+        //Propriedades auxiliares
         private UsuarioRepository _repo = new UsuarioRepository();
 
+        //Métodos
+
+        /// <summary>
+        /// Função responsável por exibir as opções de login / cadastrar e gerenciar a ação
+        /// </summary>
         public void Exibir()
         {
             while (true)
@@ -29,6 +38,10 @@ namespace sistema_estoque.console_admin.menus
 
             }
         }
+
+        /// <summary>
+        /// Função responsável por exibir os campos para realizar o login
+        /// </summary>
         private void RealizarLogin()
         {
             Console.Clear();
@@ -57,6 +70,9 @@ namespace sistema_estoque.console_admin.menus
             }
         }
 
+        /// <summary>
+        /// Função responsável por exibir os campos para realizar o cadastro
+        /// </summary>
         private void RealizarCadastro()
         {
             Console.Clear();

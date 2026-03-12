@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace sistema_estoque.core.models
 {
+    /// <summary>
+    /// Classe mmodelo para representar os campos da tabela usuarios
+    /// </summary>
     public class Usuario
     {
         //Propriedades

@@ -8,10 +8,21 @@ using sistema_estoque.infrastructure.database;
 
 namespace sistema_estoque.infrastructure.repositories
 {
+    /// <summary>
+    /// Classe responspavel por realizar a troca de dados entre o sistema e o banco de dados
+    /// Utiliza o modelo Produto
+    /// </summary>
     public class ProdutoRepository
     {
+        //Variáveis auxiliares
         private readonly DatabaseConnection _database = new DatabaseConnection();
 
+        //Métodos
+
+        /// <summary>
+        /// Função responsável por salvar um produto no banco de dados
+        /// </summary>
+        /// <param name="produto"></param>
         public void CriarProduto(Produto produto)
         {
             using var conn = _database.GetConnection();
@@ -31,6 +42,11 @@ namespace sistema_estoque.infrastructure.repositories
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Função responsável por listar todos os produtos do usuário logado
+        /// </summary>
+        /// <param name="usuarioId">Id do usuário logado, para que seja realizado o filtro por usuário</param>
+        /// <returns></returns>
         public List<Produto> ListarProdutos(int usuarioId)
         {
             var lista = new List<Produto>();
@@ -62,6 +78,10 @@ namespace sistema_estoque.infrastructure.repositories
             return lista;
         }
 
+        /// <summary>
+        /// Função responsável por atualizar um produto no banco de dados
+        /// </summary>
+        /// <param name="produto">Instancia do modelo produto, com os dados preenchidos para realizar a atualização</param>
         public void AtualizarProduto(Produto produto)
         {
             using var conn = _database.GetConnection();
@@ -81,6 +101,13 @@ namespace sistema_estoque.infrastructure.repositories
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Função responsável pro atualizar o saldo do produto sempre que uma movimentação for realizada
+        /// Melhorando a performace para que não precise semrpe listar toda a movimentação para ver a quantidade final
+        /// </summary>
+        /// <param name="produtoId">Id do produto para realizar o filtro corretamente</param>
+        /// <param name="qtd">Quantidade fornecida pela movimentação</param>
+        /// <param name="operacao">Informa se é para somar ou sibtrair do último valor registrado</param>
         public void AtualizarSaldo(int produtoId, int qtd, string operacao)
         {
             using var conn = _database.GetConnection();

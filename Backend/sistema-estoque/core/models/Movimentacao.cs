@@ -2,6 +2,9 @@ using sistema_estoque.core.enums;
 
 namespace sistema_estoque.core.models
 {
+     /// <summary>
+    /// Classe mmodelo para representar os campos da tabela movimentacoes
+    /// </summary>
     public class Movimentacao
     {
         //Propriedades

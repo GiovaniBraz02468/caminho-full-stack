@@ -6,9 +6,18 @@ using System.Threading.Tasks;
 
 namespace sistema_estoque.console_admin.services
 {
+    /// <summary>
+    /// Classe responsável por realizar validações genéricas em todo o sistema
+    /// </summary>
     public class ConsoleUtils
     {
         //Métodos
+
+        /// <summary>
+        /// Função responsável por validar um campo obrigatório e obrigar o uusário a digitar corretamente
+        /// </summary>
+        /// <param name="campo">Nome do campo para retornar uma descrição mais clara para o cliente</param>
+        /// <returns>Uma string contendo o valor digitado pelo usuário já valiidado</returns>
         public static string LerInputObrigatorio(string campo)
         {
             string entrada;
@@ -23,6 +32,12 @@ namespace sistema_estoque.console_admin.services
             } while (string.IsNullOrEmpty(entrada));
             return entrada;
         }
+
+        /// <summary>
+        /// Função genérica responsável por validar opções digitadas pelo cliente
+        /// </summary>
+        /// <param name="opcoesValidas">Um array contendo as opções válidas</param>
+        /// <returns>Uma string contendo o valor digitado pelo usuário, validade para que seja uma das opções do opcoesValidas</returns>
         public static string LerOpcaoMenu(string[] opcoesValidas)
         {
             while (true)
@@ -39,6 +54,12 @@ namespace sistema_estoque.console_admin.services
             }
         }
 
+        /// <summary>
+        /// Função que realiza a leitura e validação para que seja um valor inteiro
+        /// </summary>
+        /// <param name="mensagem">Mensagem do sistema para o cliente, para deixar claro a entrada de dados</param>
+        /// <param name="minimo">Valor mínimo aceitado pelo sistema, se for maior que 0, ele pede novamente o valor e fala que precisa ser maior que o valor mínimo</param>
+        /// <returns>Um valor int já validado para utilizar no sistema</returns>
         public static int LerIntOpcional(string mensagem, int minimo = 0)
         {
             while (true)
@@ -62,6 +83,12 @@ namespace sistema_estoque.console_admin.services
             }
         }
 
+        /// <summary>
+        /// Função que realiza a leitura e validação para que seja um valor decimal / inteiro
+        /// </summary>
+        /// <param name="mensagem">Mensagem do sistema para o cliente, para deixar claro a entrada de dados</param>
+        /// <param name="minimo">Valor mínimo aceitado pelo sistema, se for maior que 0, ele pede novamente o valor e fala que precisa ser maior que o valor mínimo</param>
+        /// <returns>Um valor decimal validado para utilizar no sistema</returns>
         public static decimal LerDecimalOpcional(string mensagem, decimal minimo = 0)
         {
             while (true)

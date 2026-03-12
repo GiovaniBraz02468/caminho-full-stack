@@ -7,9 +7,24 @@ using sistema_estoque.infrastructure.database;
 
 namespace sistema_estoque.infrastructure.repositories
 {
+    /// <summary>
+    /// Classe responspavel por realizar a troca de dados entre o sistema e o banco de dados
+    /// Utiliza o modelo Movimentacao
+    /// </summary>
     public class MovimentacaoRepository
     {
+        //Variáveis auxiliares
         private readonly DatabaseConnection _database = new DatabaseConnection();
+
+        //Métodos
+
+        /// <summary>
+        /// Função responsável por salvar os dados no banco de dados
+        /// </summary>
+        /// <param name="produtoId">Id do produto para vincular a essa movimentação</param>
+        /// <param name="qtd">Quantidade de itens a remover / adicionar</param>
+        /// <param name="valor">Valor dos produtos sendo adicionados</param>
+        /// <param name="tipo">Tipo de movimentação (1 para entrada, 2 para retirada)</param>
         public void Salvar(int produtoId, int qtd, decimal valor, int tipo)
         {
             using var conn = _database.GetConnection();
@@ -28,6 +43,10 @@ namespace sistema_estoque.infrastructure.repositories
             cmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Função responsável por listar o histórico de movimentações realizadas
+        /// </summary>
+        /// <returns></returns>
         public List<dynamic> ListarHistorico()
         {
             var lista = new List<dynamic>();
