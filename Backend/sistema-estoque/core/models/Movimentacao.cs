@@ -2,7 +2,7 @@ using sistema_estoque.core.enums;
 
 namespace sistema_estoque.core.models
 {
-     /// <summary>
+    /// <summary>
     /// Classe mmodelo para representar os campos da tabela movimentacoes
     /// </summary>
     public class Movimentacao
@@ -12,10 +12,11 @@ namespace sistema_estoque.core.models
         public int ProdutoId { get; set; }
         public int Quantidade { get; set; }
         public decimal ValorUnitario { get; set; }
-        public required TipoMovimentacao Tipo { get; set; }
+        public TipoMovimentacao Tipo { get; set; }
         public DateTime DataMovmentacao { get; set; }
 
         //Construtores
+        public Movimentacao() { }
         public Movimentacao(int produtoId, int quantidade, decimal valorUnitario, TipoMovimentacao tipo)
         {
             ProdutoId = produtoId;

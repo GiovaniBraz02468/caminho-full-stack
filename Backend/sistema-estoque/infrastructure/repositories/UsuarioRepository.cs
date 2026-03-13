@@ -107,7 +107,5 @@ namespace sistema_estoque.infrastructure.repositories
 
             return null;
         }
-
-
     }
 }

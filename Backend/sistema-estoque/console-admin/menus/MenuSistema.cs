@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using sistema_estoque.console_admin.services;
+using sistema_estoque.core.enums;
 using sistema_estoque.core.models;
 using sistema_estoque.infrastructure.database;
 using sistema_estoque.infrastructure.repositories;
 
 namespace sistema_estoque.console_admin.menus
 {
+    
     /// <summary>
     /// Classe responsável por gerenciar o menu do cliente após o login (Gerenciar produtos e estoque)
     /// </summary>
@@ -65,6 +67,7 @@ namespace sistema_estoque.console_admin.menus
 
         /// <summary>
         /// Função responsável por realizar o cadastro de um novo produto (chamando as funções do repositório)
+        /// Atualização -> Adicionado uma possível movimentação 
         /// </summary>
         private void CadastrarNovoProduto()
         {
@@ -73,23 +76,24 @@ namespace sistema_estoque.console_admin.menus
             string nome = ConsoleUtils.LerInputObrigatorio("Nome do Produto");
             string descricao = ConsoleUtils.LerInputObrigatorio("Descrição");
 
-            int qtd = ConsoleUtils.LerIntOpcional("Quantidade Inicial (ou Enter para 0)");
-            decimal valor = ConsoleUtils.LerDecimalOpcional("Valor Unitário (ou Enter para 0)");
-
-            var novoProduto = new Produto(_usuarioLogado.Id, nome, descricao, qtd, valor);
+            var novoProduto = new Produto(_usuarioLogado.Id, nome, descricao, 0, 0);
 
             try
             {
-                _produtoRepo.CriarProduto(novoProduto);
-                Console.WriteLine($"{Icones.Sucesso} Produto '{nome}' cadastrado com sucesso!");
+                int idGerado = _produtoRepo.CriarProduto(novoProduto);
+                Console.WriteLine($"{Icones.Sucesso} Produto '{nome}' cadastrado com sucesso (ID: {idGerado})!");
+
+                Console.WriteLine($"{Icones.Estoque} Deseja realizar a primeira entrada de estoque?");
+                string resposta = ConsoleUtils.LerOpcaoMenu(["S", "N"]); if (Console.ReadLine()?.ToUpper() == "S")
+                {
+
+                    RealizarMovimentacao(idGerado);
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"{Icones.Erro} Erro ao salvar produto: {ex.Message}");
             }
-
-            Console.WriteLine("Pressione qualquer tecla para voltar...");
-            Console.ReadKey();
         }
 
         /// <summary>
@@ -128,6 +132,7 @@ namespace sistema_estoque.console_admin.menus
 
         /// <summary>
         /// Função responsável por realizar a edição de um produto (Chamando as funções do repositório)
+        /// Atualização - > realiza a exclusão tbm
         /// </summary>
         private void EditarProduto()
         {
@@ -159,27 +164,53 @@ namespace sistema_estoque.console_admin.menus
                 return;
             }
 
-            Console.WriteLine($"Editando: {produto.Nome}");
-            Console.WriteLine("(Deixe em branco para manter o valor atual)");
+            Console.WriteLine($"O que deseja fazer com o produto: {produto.Nome}?");
+            Console.WriteLine("1 - Editar informações");
+            Console.WriteLine("2 - EXCLUIR PRODUTO (e todo o seu histórico)");
+            Console.WriteLine("0 - Voltar");
 
-            Console.Write($"Novo Nome [{produto.Nome}]: ");
-            string novoNome = Console.ReadLine() ?? "";
-            if (!string.IsNullOrEmpty(novoNome)) produto.Nome = novoNome;
+            string subOpcao = ConsoleUtils.LerOpcaoMenu(["1", "2", "0"]);
 
-            Console.Write($"Nova Descrição [{produto.Descricao}]: ");
-            string novaDesc = Console.ReadLine() ?? "";
-            if (!string.IsNullOrEmpty(novaDesc)) produto.Descricao = novaDesc;
-
-            produto.ValorUnitario = ConsoleUtils.LerDecimalOpcional("Novo Valor");
-
-            try
+            if (subOpcao == "1")
             {
-                _produtoRepo.AtualizarProduto(produto);
-                Console.WriteLine($"{Icones.Sucesso} Alterações salvas com sucesso!");
+                Console.WriteLine($"Editando: {produto.Nome}");
+                Console.WriteLine("(Deixe em branco para manter o valor atual)");
+
+                Console.Write($"Novo Nome [{produto.Nome}]: ");
+                string novoNome = Console.ReadLine() ?? "";
+                if (!string.IsNullOrEmpty(novoNome)) produto.Nome = novoNome;
+
+                Console.Write($"Nova Descrição [{produto.Descricao}]: ");
+                string novaDesc = Console.ReadLine() ?? "";
+                if (!string.IsNullOrEmpty(novaDesc)) produto.Descricao = novaDesc;
+                try
+                {
+                    _produtoRepo.AtualizarProduto(produto);
+                    Console.WriteLine($"{Icones.Sucesso} Alterações salvas com sucesso!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"{Icones.Erro} Erro ao atualizar: {ex.Message}");
+                }
             }
-            catch (Exception ex)
+            else if (subOpcao == "2")
             {
-                Console.WriteLine($"{Icones.Erro} Erro ao atualizar: {ex.Message}");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"{Icones.Alerta} ATENÇÃO: Isso apagará permanentemente o produto e TODAS as suas movimentações!");
+                Console.Write("Para confirmar, digite exatamente 'DELETAR': ");
+                Console.ResetColor();
+
+                if (Console.ReadLine()?.ToUpper() == "DELETAR")
+                {
+                    _produtoRepo.ExcluirProduto(produto.Id);
+                    Console.WriteLine($"{Icones.Sucesso} Produto removido com sucesso!");
+                    Thread.Sleep(2000);
+                }
+                else
+                {
+                    Console.WriteLine("Ação cancelada. Nada foi excluído.");
+                    Thread.Sleep(1000);
+                }
             }
 
             Console.WriteLine("Pressione qualquer tecla para voltar...");
@@ -189,34 +220,54 @@ namespace sistema_estoque.console_admin.menus
         /// <summary>
         /// Função responsável por realizar uma nova movimentação de um produto (Chamando as funções do repositório)
         /// </summary>
-        private void RealizarMovimentacao()
+        private void RealizarMovimentacao(int? idPreSelecionado = null)
         {
             Console.Clear();
             Console.WriteLine($"=== {Icones.Produto} NOVA MOVIMENTAÇÃO ===");
+
             var produtos = _produtoRepo.ListarProdutos(_usuarioLogado.Id);
 
-            foreach (var p in produtos)
+            if (produtos.Count == 0)
             {
-                Console.WriteLine($"ID: {p.Id} | {p.Nome} | Saldo Atual: {p.QuantidadeAtual}");
+                Console.Clear();
+                Console.WriteLine($"{Icones.Erro} Você não tem produtos cadastrados.");
+                Console.WriteLine("Cadastre um produto primeiro para poder lançar movimentações.");
+                Console.WriteLine("Pressione qualquer tecla para voltar...");
+                Console.ReadKey();
+                return;
+            }
+
+            if (idPreSelecionado == null)
+            {
+                foreach (var p in produtos)
+                {
+                    Console.WriteLine($"ID: {p.Id} | {p.Nome} | Saldo Atual: {p.QuantidadeAtual}");
+                }
             }
 
             Produto? produto = null;
-            int id = 0;
+            int id = idPreSelecionado ?? 0;
+
             while (true)
             {
+                if (id > 0)
+                {
+                    produto = produtos.FirstOrDefault(p => p.Id == id);
+                    if (produto != null) break;
+                }
+
                 Console.Write("Digite o ID do produto (ou 0 para cancelar): ");
                 if (!int.TryParse(Console.ReadLine(), out id))
                 {
-                    Console.WriteLine("⚠️ Digite um número de ID válido!");
+                    Console.WriteLine($"{Icones.Alerta} Digite um número de ID válido!");
+                    id = 0;
                     continue;
                 }
+
                 if (id == 0) return;
-
-                produto = produtos.FirstOrDefault(p => p.Id == id);
-                if (produto != null) break;
-
-                Console.WriteLine($"{Icones.Erro} Produto não encontrado! Tente novamente.");
             }
+
+            Console.WriteLine($"{Icones.Produto} Movimentando: {produto.Nome}");
 
             int tipo = 0;
             while (true)
@@ -245,15 +296,15 @@ namespace sistema_estoque.console_admin.menus
             decimal valor = 0;
             while (true)
             {
-                valor = ConsoleUtils.LerDecimalOpcional("Valor", 1);
+                valor = ConsoleUtils.LerDecimalOpcional(tipo == 1 ? "Valor de Compra Unitário" : "Valor de Saída Unitário", 0.01m);
                 break;
             }
 
             try
             {
                 _movimentacaoRepo.Salvar(id, qtd, valor, tipo);
-                string operacao = (tipo == 1) ? "+" : "-";
-                _produtoRepo.AtualizarSaldo(id, qtd, operacao);
+
+                _produtoRepo.AtualizarSaldo(id, qtd, valor, tipo);
 
                 Console.WriteLine($"\n{Icones.Sucesso} Movimentação de {(tipo == 1 ? "Entrada" : "Saída")} realizada com sucesso!");
             }
@@ -272,17 +323,50 @@ namespace sistema_estoque.console_admin.menus
         private void VerHistorico()
         {
             Console.Clear();
-            Console.WriteLine("=== 📜 HISTÓRICO DE MOVIMENTAÇÕES ===");
-            Console.WriteLine("ID | Produto          | Tipo    | Qtd | Data");
-            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine($"=== {Icones.Lista} EXTRATO POR PRODUTO ===");
 
-            var historico = _movimentacaoRepo.ListarHistorico();
+            var produtos = _produtoRepo.ListarProdutos(_usuarioLogado.Id);
 
-            foreach (var h in historico)
+            if (produtos.Count == 0)
             {
-                Console.WriteLine($"{h.Id,-2} | {h.Produto,-16} | {h.Tipo,-7} | {h.Qtd,-3} | {h.Data:dd/MM/yyyy HH:mm}");
+                Console.WriteLine("Nenhum produto cadastrado para ver histórico.");
+                Console.ReadKey();
+                return;
+            }
+            foreach (var p in produtos)
+            {
+                Console.WriteLine($"ID: {p.Id} | {p.Nome}");
             }
 
+            Console.Write("\nDigite o ID do produto para ver o extrato (ou 0 para cancelar): ");
+            if (!int.TryParse(Console.ReadLine(), out int id) || id == 0) return;
+            var produtoSel = produtos.FirstOrDefault(p => p.Id == id);
+
+            if (produtoSel == null)
+            {
+                Console.WriteLine("Produto não encontrado!");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.Clear();
+            Console.WriteLine($"=== 📜 EXTRATO: {produtoSel.Nome.ToUpper()} ===");
+            Console.WriteLine($"Saldo Atual: {produtoSel.QuantidadeAtual} | Valor Médio: {produtoSel.ValorUnitario:C}");
+            Console.WriteLine("--------------------------------------------------");
+            Console.WriteLine("Data       | Tipo    | Qtd | Valor Unit. | Total");
+            Console.WriteLine("--------------------------------------------------");
+
+            var historico = _movimentacaoRepo.ListarHistoricoPorProduto(id);
+            foreach (var h in historico)
+            {
+                string sinal = h.Tipo == TipoMovimentacao.Entrada ? "+" : "-";
+                string descTipo = h.Tipo == TipoMovimentacao.Entrada ? "Entrada" : "Saída";
+                decimal totalLinha = h.Quantidade * h.ValorUnitario;
+
+                Console.WriteLine($"{h.DataMovmentacao:dd/MM/yyyy} | {descTipo,-7} | {sinal}{h.Quantidade,-3} | {h.ValorUnitario,10:C} | {totalLinha,10:C}");
+            }
+
+            Console.WriteLine("--------------------------------------------------");
             Console.WriteLine("Pressione qualquer tecla para voltar...");
             Console.ReadKey();
         }

@@ -23,13 +23,14 @@ namespace sistema_estoque.infrastructure.repositories
         /// Função responsável por salvar um produto no banco de dados
         /// </summary>
         /// <param name="produto"></param>
-        public void CriarProduto(Produto produto)
+        public int CriarProduto(Produto produto)
         {
             using var conn = _database.GetConnection();
             conn.Open();
 
             string query = @"INSERT INTO produtos (usuario_id, nome, descricao, quantidade_atual, valor_unitario, data_criacao) 
-                            VALUES (@usuarioId, @nome, @descricao, @quantidade, @valor, @data)";
+                    VALUES (@usuarioId, @nome, @descricao, @quantidade, @valor, @data);
+                    SELECT LAST_INSERT_ID();";
 
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@usuarioId", produto.UsuarioId);
@@ -39,7 +40,7 @@ namespace sistema_estoque.infrastructure.repositories
             cmd.Parameters.AddWithValue("@valor", produto.ValorUnitario);
             cmd.Parameters.AddWithValue("@data", produto.DataCriacao);
 
-            cmd.ExecuteNonQuery();
+            return Convert.ToInt32(cmd.ExecuteScalar());
         }
 
         /// <summary>
@@ -102,21 +103,50 @@ namespace sistema_estoque.infrastructure.repositories
         }
 
         /// <summary>
-        /// Função responsável pro atualizar o saldo do produto sempre que uma movimentação for realizada
-        /// Melhorando a performace para que não precise semrpe listar toda a movimentação para ver a quantidade final
+        /// Função que atualiza saldo do produto e valor médio a cada movimentação
         /// </summary>
-        /// <param name="produtoId">Id do produto para realizar o filtro corretamente</param>
-        /// <param name="qtd">Quantidade fornecida pela movimentação</param>
-        /// <param name="operacao">Informa se é para somar ou sibtrair do último valor registrado</param>
-        public void AtualizarSaldo(int produtoId, int qtd, string operacao)
+        /// <param name="produtoId">Id do produto para atualizar os dados</param>
+        /// <param name="qtd">Quantidade para remover ou adicionar</param>
+        /// <param name="valorMovimentacao">Valor dos itens da movimentação</param>
+        /// <param name="tipo">Tipo de movimentação (1 para adicionar, 2 para subtrair)</param>
+        public void AtualizarSaldo(int produtoId, int qtd, decimal valorMovimentacao, int tipo)
         {
             using var conn = _database.GetConnection();
             conn.Open();
-            string query = $"UPDATE produtos SET quantidade_atual = quantidade_atual {operacao} @qtd WHERE id = @id";
+
+            string query;
+            if (tipo == 1)
+            {
+                query = @"UPDATE produtos 
+                  SET valor_unitario = ((quantidade_atual * valor_unitario) + (@qtd * @valor)) / (quantidade_atual + @qtd),
+                      quantidade_atual = quantidade_atual + @qtd 
+                  WHERE id = @id";
+            }
+            else
+            {
+                query = "UPDATE produtos SET quantidade_atual = quantidade_atual - @qtd WHERE id = @id";
+            }
 
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@qtd", qtd);
+            cmd.Parameters.AddWithValue("@valor", valorMovimentacao);
             cmd.Parameters.AddWithValue("@id", produtoId);
+            cmd.ExecuteNonQuery();
+        }
+
+        /// <summary>
+        /// Função responsável por Excluir um produto
+        /// </summary>
+        /// <param name="id">Id do produto a ser excluido</param>
+        public void ExcluirProduto(int id)
+        {
+            using var conn = _database.GetConnection();
+            conn.Open();
+
+            string query = "DELETE FROM produtos WHERE id = @id";
+
+            using var cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@id", id);
             cmd.ExecuteNonQuery();
         }
     }
